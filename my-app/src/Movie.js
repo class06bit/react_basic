@@ -3,28 +3,51 @@ import propTypes from 'prop-types';
 import './Movie.css';
 
 
-function Movie({title, poster}){
+function Movie({title, poster, genres, synopsis}){
   return (
-    <div>
-    <MoviePoster poster={poster}/>
-    <h1>{title}</h1>
+    <div className="Movie">
+      <div className="Movie__Columns">
+        <MoviePoster poster={poster} alt={title}/>
+      </div>
+      <div className="Movie__columns">
+        <h1>{title}</h1>
+        <div className="Movie__Genres">
+          {genres.map((genre, index) => <MovieGenre genre={genre} key={index} />)}
+          
+        </div>
+        <div className="Movie__Synopsis">
+          <p>{synopsis}</p>
+        </div>
+      </div>
     </div>
   )
 }
 
-function MoviePoster({poster}){
+function MoviePoster({poster, alt}){
   return (
-    <img src={poster} alt="poster" />
+    <img src={poster} alt={alt} className="Movie__Poster"/>
+  )
+}
+
+function MovieGenre({genre}){
+  return (
+    <span className="Movie__Genre">{genre} </span>
   )
 }
 
 Movie.propTypes = {
   title: propTypes.string.isRequired,
-  poster: propTypes.string.isRequired
+  poster: propTypes.string.isRequired,
+  genres: propTypes.array.isRequired,
+  synopsis: propTypes.string.isRequired
 }
 
 MoviePoster.propTypes = {
   poster: propTypes.string.isRequired
+}
+
+MovieGenre.propTypes = {
+  genres: propTypes.string.isRequired
 }
 
 export default Movie;
